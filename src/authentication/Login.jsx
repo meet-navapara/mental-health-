@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import Layout from '../components/Layout';
 import logo from '../assets/logo.png';
+import login_brain from '../assets/login_brain.png';
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Please enter a valid email address').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+});
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+
   return (
-    <Layout>
+    <Layout img={login_brain}>
       <div className="w-full max-w-md px-4 rounded-lg font-sans font-medium text-[16px] leading-[100%] tracking-[0px]">
         <div className='flex mb-4'>
              <img src={logo} alt="Logo" className="h-10 mb-3" />
              <h2 className='font-bold ms-3 mt-3 text-[26px]'>Logoipsum</h2>
         </div>
         <div className="flex flex-col  mb-6">
-         
           <h2 className="text-[22px] font-semibold text-gray-800">
             Welcome! Please log in to continue
           </h2>
@@ -20,20 +29,7 @@ const Login = () => {
 
         <Formik
           initialValues={{ email: '', password: '', remember: false }}
-          validate={values => {
-            const errors = {};
-            if (!values.email) {
-              errors.email = 'Required';
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-              errors.password = 'Required';
-            }
-            return errors;
-          }}
+          validationSchema={LoginSchema}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
@@ -51,21 +47,29 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Enter your email address"
-                  className="w-full mt-2 px-3 py-2 border border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#65C6F2] bg-white placeholder:text-[14px]"
+                  className="w-full mt-2 px-3 py-2 border border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#65C6F2] bg-white placeholder:text-[14px] text-black"
                 />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 
-              <div>
+              <div className="relative">
                 <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-1">
                   Password<span className="text-red-500">*</span>
                 </label>
                 <Field
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter your password"
-                  className="w-full mt-2 px-3 py-2 border border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#65C6F2] bg-white placeholder:text-[14px]"
+                  className="w-full mt-2 px-3 py-2 border border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#65C6F2] bg-white placeholder:text-[14px] text-black"
                 />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="absolute right-2 top-8 text-gray-500"
+                  tabIndex={-1}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 

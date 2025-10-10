@@ -40,3 +40,11 @@ h1 {
 h2{
   color: black;
 }
+
+.PhoneInput,  .PhoneInputInput{
+  border: #65C6F2   ;
+}
+.PhoneInputInput:focus-visible{
+  border: none !important;
+  outline: none !important;
+}
