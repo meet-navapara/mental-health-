@@ -14,7 +14,7 @@ const Layout = ({ children, img = brain  }) => {
       </div>
 
       {/* Right side - dynamic form area */}
-      <div className="w-1/2  flex items-center justify-center p-8 pt-10 overflow-y-auto max-h-screen">
+      <div className="w-1/2  flex items-center justify-center p-8 pt-10 overflow-x-auto max-h-screen">
         {children}
       </div>
     </div>

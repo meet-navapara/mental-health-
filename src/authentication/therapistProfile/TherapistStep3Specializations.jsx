@@ -7,7 +7,6 @@ const specializationsOptions = [
   { value: 'Couple Therapy', label: 'Couple Therapy' },
   { value: 'Cognitive Behavioral Therapy', label: 'Cognitive Behavioral Therapy' },
   { value: 'Family Therapy', label: 'Family Therapy' },
-  // Add more specializations as needed
 ];
 
 const languagesOptions = [
@@ -15,10 +14,39 @@ const languagesOptions = [
   { value: 'Spanish', label: 'Spanish' },
   { value: 'French', label: 'French' },
   { value: 'German', label: 'German' },
-  // Add more languages as needed
 ];
 
-// Custom multi-select component integrated with Formik
+// Custom styles for react-select options
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? '#65C6F2' // selected option
+      : state.isFocused
+      ? '#E0F2FE' // hovered option
+      : 'white',
+    color: state.isSelected ? 'white' : 'black',
+    cursor: 'pointer',
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: '#E0F2FE',
+    color: '#1E3A8A',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: '#1E3A8A',
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    color: '#1E3A8A',
+    ':hover': {
+      backgroundColor: '#1E3A8A',
+      color: 'white',
+    },
+  }),
+};
+
 const MultiSelectField = ({ label, name, options }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
@@ -39,9 +67,8 @@ const MultiSelectField = ({ label, name, options }) => {
         value={selectedValues}
         onChange={handleChange}
         classNamePrefix="react-select"
-        className="w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+        styles={customStyles}
         placeholder="Select"
-      
       />
       {meta.touched && meta.error ? (
         <div className="text-red-500 text-sm mt-1">{meta.error}</div>
@@ -52,8 +79,8 @@ const MultiSelectField = ({ label, name, options }) => {
 
 const TherapistStep3Specializations = () => {
   return (
-    <div className="">
-      <h3 className="text-xl font-semibold mb-6 text-gray-800">Specialization</h3>
+    <div>
+      <h3 className="text-xl font-semibold mb-6 text-gray-800">Specializations & Languages</h3>
       <MultiSelectField label="Specialization" name="specializations" options={specializationsOptions} />
       <MultiSelectField label="Languages" name="languages" options={languagesOptions} />
     </div>

@@ -155,14 +155,14 @@ const TherapistEducationModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
+                  className="px-6 w-[50%] py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-[#65C6F2] text-white rounded-md font-semibold hover:bg-[#4aa0d8] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 w-[50%] bg-[#65C6F2] text-white rounded-md font-semibold hover:bg-[#4aa0d8] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Save
                 </button>
